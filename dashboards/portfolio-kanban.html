@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IfeSec Portfolio Expansion — Live Kanban</title>
+<meta http-equiv="refresh" content="60">
+<style>
+  :root { --ifesec-gold: #d4af37; --ifesec-crimson: #8b0000; --ifesec-black: #0a0a0a; --bg: #1a1a1a; --card: #2a2a2a; --border: #444; --text: #e8e8e8; --muted: #888; --green: #10b981; --yellow: #eab308; --red: #dc2626; --blue: #3b82f6; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; padding: 24px; }
+  .header { background: linear-gradient(135deg, var(--ifesec-black) 0%, #1f1f1f 100%); border: 1px solid var(--ifesec-gold); border-radius: 8px; padding: 24px; margin-bottom: 24px; }
+  .header h1 { color: var(--ifesec-gold); font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .header p { color: var(--muted); font-size: 14px; }
+  .header .accent { color: var(--ifesec-crimson); }
+  .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+  .panel { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+  .panel h2 { color: var(--ifesec-gold); font-size: 18px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+  th { color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+  .status { padding: 3px 10px; border-radius: 4px; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
+  .status-done { background: var(--green); color: var(--ifesec-black); }
+  .status-running { background: var(--blue); color: white; }
+  .status-ready { background: var(--muted); color: white; }
+  .status-todo { background: var(--bg); color: var(--muted); border: 1px solid var(--muted); }
+  .status-blocked { background: var(--red); color: white; }
+  .agent { display: inline-block; padding: 2px 8px; border-radius: 3px; background: var(--ifesec-black); border: 1px solid var(--ifesec-gold); color: var(--ifesec-gold); font-weight: 600; font-size: 11px; }
+  .llm { font-family: monospace; color: var(--muted); font-size: 11px; }
+  .worker-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); margin-right: 6px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+  .stat { background: var(--bg); padding: 12px; border-radius: 6px; border-left: 3px solid var(--ifesec-gold); }
+  .stat .num { font-size: 24px; font-weight: 700; color: var(--ifesec-gold); }
+  .stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .msg { background: var(--bg); padding: 8px 12px; border-radius: 4px; margin: 4px 0; font-family: monospace; font-size: 12px; border-left: 2px solid var(--ifesec-gold); }
+  .footer { text-align: center; color: var(--muted); font-size: 11px; padding: 16px; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>IfeSec Portfolio Expansion — Live Project Board</h1>
+  <p><span class="accent">AtlasPay + Helix Health + Meridian Bank</span> | Auto-refresh every 60s | Hermes Kanban + Multi-Agent Orchestration</p>
+  <p style="margin-top: 8px; font-size: 12px;">CISO Assistant v3.18.3 @ https://localhost:8443 | Last updated: 2026-06-24 14:54:30 EDT</p>
+</div>
+
+<div class="grid">
+<div>
+<div class="panel"><h2>Active Tasks</h2><table><thead><tr><th>Status</th><th>Task</th><th>Agent</th><th>LLM</th><th>Task ID</th></tr></thead><tbody>
+<tr>
+  <td><span class="status status-done">Done</span></td>
+  <td>Mac disk cleanup: reclaim 40-50 GB outside Hermes</td>
+  <td><span class="agent">default</span><br><span style="color: var(--muted); font-size: 10px;">COO / Orchestration</span></td>
+  <td class="llm">minimax-m3:cloud</td>
+  <td class="llm">t_b8c5039b</td>
+</tr>
+<tr>
+  <td><span class="status status-done">Done</span></td>
+  <td>Mission Control dashboard: Helix portfolio section (live API counts)</td>
+  <td><span class="agent">ugo</span><br><span style="color: var(--muted); font-size: 10px;">Status rollups / Mission Control</span></td>
+  <td class="llm">ollama/glm-5.2:cloud</td>
+  <td class="llm">t_4aada2eb</td>
+</tr>
+<tr>
+  <td><span class="status status-done">Done</span></td>
+  <td>Meridian Bank persona spec authoring</td>
+  <td><span class="agent">default</span><br><span style="color: var(--muted); font-size: 10px;">COO / Orchestration</span></td>
+  <td class="llm">minimax-m3:cloud</td>
+  <td class="llm">t_dc1afbeb</td>
+</tr>
+<tr>
+  <td><span class="status status-running">Running</span></td>
+  <td>Helix Health portfolio PDF: 8-page executive narrative (Amara)</td>
+  <td><span class="agent">amara</span><br><span style="color: var(--muted); font-size: 10px;">Brand / Portfolio</span></td>
+  <td class="llm">ollama/kimi-k2.7-code:cloud</td>
+  <td class="llm">t_fbd7c586</td>
+</tr>
+<tr>
+  <td><span class="status status-done">Done</span></td>
+  <td>Helix framework sign-off: HIPAA + HITRUST gap analysis (Obinna)</td>
+  <td><span class="agent">obinna</span><br><span style="color: var(--muted); font-size: 10px;">Cybersecurity / Cert</span></td>
+  <td class="llm">ollama/deepseek-v4-pro:cloud</td>
+  <td class="llm">t_49d93eb2</td>
+</tr>
+<tr>
+  <td><span class="status status-done">Done</span></td>
+  <td>Helix Phase 1B: ROPA + validation flows + audit log config</td>
+  <td><span class="agent">adeola</span><br><span style="color: var(--muted); font-size: 10px;">Systems / Automation</span></td>
+  <td class="llm">ollama/glm-5.2:cloud</td>
+  <td class="llm">t_96d27b8e</td>
+</tr>
+<tr>
+  <td><span class="status status-done">Done</span></td>
+  <td>AtlasPay residuals cleanup (R-01/R-03/R-06) + delete TEST-PERIM-DEL-12345</td>
+  <td><span class="agent">default</span><br><span style="color: var(--muted); font-size: 10px;">COO / Orchestration</span></td>
+  <td class="llm">minimax-m3:cloud</td>
+  <td class="llm">t_e62cb106</td>
+</tr>
+</tbody></table></div><div class="panel"><h2>Live Worker Activity</h2><div class="msg"><span class="worker-dot"></span><strong>amara</strong> (ollama/kimi-k2.7-code:cloud) — task <code>t_fbd7c586</code></div></div><div class="panel"><h2>Project Status</h2>
+<div class="summary">
+  <div class="stat"><div class="num">6</div><div class="label">Completed</div></div>
+  <div class="stat"><div class="num">1</div><div class="label">Running Now</div></div>
+  <div class="stat"><div class="num">0</div><div class="label">Ready Queue</div></div>
+  <div class="stat"><div class="num">0</div><div class="label">Pending</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Project Deliverables</h2>
+<table>
+<thead><tr><th>Deliverable</th><th>Owner</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>AtlasPay residuals + TEST-PERIM-DEL-12345 cleanup</td><td>Default (me)</td><td><span class="status status-done">Done</span></td></tr>
+<tr><td>Helix 12 risk scenarios + 12 policies + 3 perimeters</td><td>Default (me)</td><td><span class="status status-done">Done</span></td></tr>
+<tr><td>Helix Phase 1B: 15 ROPA + 5 validation flows + audit log config</td><td>Adeola (GLM-5.2)</td><td><span class="status status-ready">Queued</span></td></tr>
+<tr><td>Helix framework sign-off: HIPAA + HITRUST gap analysis</td><td>Obinna (DeepSeek V4)</td><td><span class="status status-ready">Queued</span></td></tr>
+<tr><td>Helix 8-page portfolio PDF</td><td>Amara (Kimi K2.7)</td><td><span class="status status-ready">Queued</span></td></tr>
+<tr><td>Meridian Bank persona spec</td><td>Default (me)</td><td><span class="status status-running">Running</span></td></tr>
+<tr><td>Mission Control dashboard section</td><td>Ugo (GLM-5.2)</td><td><span class="status status-running">Running</span></td></tr>
+<tr><td>Mac disk cleanup</td><td>Default (me)</td><td><span class="status status-running">Running</span></td></tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div>
+<div class="panel"><h2>Agent Profiles & LLMs</h2><table>
+<thead><tr><th>Profile</th><th>Lane</th><th>LLM</th></tr></thead><tbody>
+<tr><td><span style="color: var(--muted);">○</span> <span class="agent">default</span></td><td style="font-size: 12px;">COO / Orchestration</td><td class="llm">minimax-m3:cloud</td></tr><tr><td><span style="color: var(--muted);">○</span> <span class="agent">adeola</span></td><td style="font-size: 12px;">Systems / Automation</td><td class="llm">ollama/glm-5.2:cloud</td></tr><tr><td><span style="color: var(--muted);">○</span> <span class="agent">obinna</span></td><td style="font-size: 12px;">Cybersecurity / Cert</td><td class="llm">ollama/deepseek-v4-pro:cloud</td></tr><tr><td><span class="worker-dot"></span> <span class="agent">amara</span></td><td style="font-size: 12px;">Brand / Portfolio</td><td class="llm">ollama/kimi-k2.7-code:cloud</td></tr><tr><td><span style="color: var(--muted);">○</span> <span class="agent">ugo</span></td><td style="font-size: 12px;">Status rollups / Mission Control</td><td class="llm">ollama/glm-5.2:cloud</td></tr><tr><td><span style="color: var(--muted);">○</span> <span class="agent">zuri</span></td><td style="font-size: 12px;">Finance (uninvolved this project)</td><td class="llm">ollama/nemotron-3-super:cloud</td></tr></tbody></table></div>
+<div class="panel">
+<h2>How to Monitor</h2>
+<div class="msg">CLI: <code>hermes kanban list --board portfolio-expansion</code></div>
+<div class="msg">CLI: <code>hermes kanban tail t_&lt;task_id&gt;</code> — follow a task's events</div>
+<div class="msg">CLI: <code>hermes kanban diagnostics</code> — see errors</div>
+<div class="msg">Vault: ~/Documents/Obsidian Vault/50-Agents/&lt;name&gt;/outbox.md</div>
+<div class="msg">Refresh: Ctrl+R (this page auto-refreshes every 60s)</div>
+</div>
+<div class="panel">
+<h2>Recent Activity</h2>
+<div class="msg">[14:23 EDT] AtlasPay cleanup DONE: R-01/03/06 levels set, TEST-PERIM-DEL-12345 deleted</div>
+<div class="msg">[14:23 EDT] 4 workers spawned: default (Meridian persona + disk cleanup), ugo (Mission Control), amara (PDF)</div>
+<div class="msg">[14:14 EDT] Specialist tasks unblocked after AtlasPay cleanup completed</div>
+<div class="msg">[14:00 EDT] CISO Assistant stack brought back online (5 containers healthy)</div>
+<div class="msg">[13:50 EDT] 14 Playwright screenshots captured, all pages render OK</div>
+</div>
+</div>
+</div>
+
+<div class="footer">
+IfeSec Hermes Kanban Board | hermes kanban list --board portfolio-expansion | 7 tasks tracked | 1 workers active | Generated 2026-06-24 14:54:30 EDT
+</div>
+
+</body></html>

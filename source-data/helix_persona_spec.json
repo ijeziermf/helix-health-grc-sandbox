@@ -1,0 +1,399 @@
+{
+  "persona": {
+    "name": "Helix Health",
+    "legal_name": "Helix Health, Inc.",
+    "industry": "Healthcare SaaS / B2B",
+    "sub_sector": "Provider-payer data exchange",
+    "size": {
+      "employees": 200,
+      "fte_security": 3,
+      "fte_engineering": 65,
+      "fte_compliance": 2,
+      "customers": "37 provider organizations, 4 payer partners"
+    },
+    "founded": 2019,
+    "funding_stage": "Series B ($48M raised, $32M Series B closed Q4 2025)",
+    "hosting": "AWS multi-region (us-east-1 primary, us-west-2 DR)",
+    "compliance_state": {
+      "soc2_type1": "Issued 2025-08, no exceptions",
+      "soc2_type2": "Observation period 2026-01-01 to 2026-12-31 (in progress)",
+      "hipaa_security_rule": "In remediation, gap closure Q3 2026 target",
+      "hitrust_csf": "Self-assessment complete Q1 2026, certification targeted Q4 2026",
+      "pci_dss": "Not applicable (no cardholder data, payments via Stripe)",
+      "iso_27001": "Roadmapped for 2027"
+    },
+    "geographic_scope": {
+      "headquarters": "Boston, MA",
+      "remote_workers": "63% of workforce",
+      "data_residency": "United States only (HIPAA-eligible AWS regions)"
+    }
+  },
+  "perimeters": [
+    {
+      "name": "BAA-Scope PHI Processing System",
+      "description": "Core provider-payer data exchange platform. Receives PHI from provider EHR integrations, normalizes to HL7 FHIR R4, transmits to payer partners under BAA. AWS account: helix-prod-phi.",
+      "in_scope": [
+        "PHI processing pipeline",
+        "HL7 FHIR R4 API",
+        "Provider EHR connectors (Epic, Cerner, Athena)",
+        "Payer-side ingestion endpoints",
+        "Audit log forwarding"
+      ],
+      "out_of_scope": [
+        "Corporate IT (separate perimeter)",
+        "Internal HR systems (no PHI)",
+        "Public marketing site"
+      ]
+    },
+    {
+      "name": "Helix Provider Portal",
+      "description": "Web application accessed by provider organization staff. BAA-covered because users view PHI. Built on React + Node.js, runs in helix-prod-app AWS account.",
+      "in_scope": [
+        "Web app frontend",
+        "API gateway",
+        "Authentication (Auth0 with MFA)",
+        "Session management",
+        "Provider-side audit logs"
+      ],
+      "out_of_scope": [
+        "Internal admin tools (separate perimeter)"
+      ]
+    },
+    {
+      "name": "Helix Internal Infrastructure",
+      "description": "Corporate IT, internal admin tools, HR systems, corporate AWS account. Not BAA-covered but supports the BAA scope indirectly.",
+      "in_scope": [
+        "Okta SSO",
+        "Google Workspace",
+        "Slack",
+        "GitHub Enterprise",
+        "Corporate AWS account (helix-corp)"
+      ],
+      "out_of_scope": [
+        "Production PHI processing (separate perimeter)"
+      ]
+    }
+  ],
+  "frameworks_to_load": [
+    {
+      "name": "HIPAA Security Rule",
+      "urn": "urn:intuitem:risk:library:hipaa-security-rule",
+      "purpose": "Primary regulatory frame for BAA-covered PHI"
+    },
+    {
+      "name": "HITRUST CSF v11",
+      "urn": "urn:intuitem:risk:library:hitrust-csf-v11",
+      "purpose": "Healthcare-specific certifiable framework, demonstrates maturity beyond HIPAA baseline"
+    },
+    {
+      "name": "SOC 2 Type 2 (TSC 2017, with 2022 points-of-focus)",
+      "urn": "urn:intuitem:risk:library:soc2-tsc-2017",
+      "purpose": "Required by enterprise customers, observation period in progress"
+    },
+    {
+      "name": "NIST CSF 2.0",
+      "urn": "urn:intuitem:risk:library:nist-csf-2.0",
+      "purpose": "Cross-reference for security operations, gap analysis"
+    }
+  ],
+  "audit_scope": {
+    "primary": "HIPAA Security Rule + SOC 2 Type 2 (2026 observation period)",
+    "secondary": "HITRUST CSF v11 self-assessment"
+  },
+  "risk_register_seed": [
+    {
+      "id": "HH-R-01",
+      "title": "Ransomware encryption of PHI processing pipeline",
+      "inherent": 25,
+      "owner": "CISO"
+    },
+    {
+      "id": "HH-R-02",
+      "title": "BAA-covered vendor breach exposing PHI",
+      "inherent": 20,
+      "owner": "VP Engineering"
+    },
+    {
+      "id": "HH-R-03",
+      "title": "Insider threat - privileged access misuse",
+      "inherent": 16,
+      "owner": "CISO"
+    },
+    {
+      "id": "HH-R-04",
+      "title": "Provider EHR connector compromise (supply chain)",
+      "inherent": 20,
+      "owner": "VP Engineering"
+    },
+    {
+      "id": "HH-R-05",
+      "title": "HIPAA breach notification failure (60-day rule)",
+      "inherent": 12,
+      "owner": "Privacy Officer"
+    },
+    {
+      "id": "HH-R-06",
+      "title": "AWS region failure (us-east-1 outage)",
+      "inherent": 9,
+      "owner": "VP Engineering"
+    },
+    {
+      "id": "HH-R-07",
+      "title": "Auth0 misconfiguration exposing patient portal",
+      "inherent": 15,
+      "owner": "VP Engineering"
+    },
+    {
+      "id": "HH-R-08",
+      "title": "Inadequate BAAs with downstream vendors",
+      "inherent": 16,
+      "owner": "Privacy Officer"
+    },
+    {
+      "id": "HH-R-09",
+      "title": "Audit log tampering or loss",
+      "inherent": 12,
+      "owner": "CISO"
+    },
+    {
+      "id": "HH-R-10",
+      "title": "Phishing of clinical staff credentials",
+      "inherent": 12,
+      "owner": "CISO"
+    },
+    {
+      "id": "HH-R-11",
+      "title": "Insecure direct object reference in FHIR API",
+      "inherent": 16,
+      "owner": "VP Engineering"
+    },
+    {
+      "id": "HH-R-12",
+      "title": "Key compromise (KMS, code signing)",
+      "inherent": 12,
+      "owner": "VP Engineering"
+    }
+  ],
+  "policy_set": [
+    "Information Security Policy",
+    "HIPAA Security Policies and Procedures",
+    "Access Control & Privileged Access Policy",
+    "Business Associate Agreement (BAA) Policy",
+    "Breach Notification Policy (HIPAA 60-day rule)",
+    "Incident Response Policy",
+    "Vendor / Third-Party Risk Management Policy",
+    "Risk Management Policy",
+    "Encryption & Key Management Policy",
+    "Audit Logging & Monitoring Policy",
+    "Data Backup & Recovery Policy",
+    "Security Awareness & Acceptable Use Policy"
+  ],
+  "tprm": {
+    "vendor_count_target": 30,
+    "vendor_tiers": {
+      "critical_baa": 8,
+      "critical_no_baa": 4,
+      "high": 9,
+      "medium": 7,
+      "low": 2
+    },
+    "sample_vendors": [
+      {
+        "name": "Amazon Web Services",
+        "tier": "critical_no_baa",
+        "baa_signed": true,
+        "phi_access": false,
+        "service": "Hosting (us-east-1, us-west-2)"
+      },
+      {
+        "name": "Datadog",
+        "tier": "critical_no_baa",
+        "baa_signed": true,
+        "phi_access": false,
+        "service": "APM, log aggregation, audit log forwarding target"
+      },
+      {
+        "name": "Auth0 (Okta CIC)",
+        "tier": "critical_baa",
+        "baa_signed": true,
+        "phi_access": true,
+        "service": "Identity provider for provider portal"
+      },
+      {
+        "name": "Stripe",
+        "tier": "low",
+        "baa_signed": false,
+        "phi_access": false,
+        "service": "Payment processing (subscriptions only, no PHI)"
+      },
+      {
+        "name": "GitHub Enterprise",
+        "tier": "high",
+        "baa_signed": false,
+        "phi_access": false,
+        "service": "Source code hosting, CI/CD"
+      },
+      {
+        "name": "Google Workspace",
+        "tier": "medium",
+        "baa_signed": true,
+        "phi_access": false,
+        "service": "Email, docs (no PHI in Workspace)"
+      },
+      {
+        "name": "PagerDuty",
+        "tier": "medium",
+        "baa_signed": false,
+        "phi_access": false,
+        "service": "Incident alerting"
+      },
+      {
+        "name": "Cloudflare",
+        "tier": "high",
+        "baa_signed": false,
+        "phi_access": false,
+        "service": "WAF, DDoS protection"
+      },
+      {
+        "name": "Sumo Logic",
+        "tier": "high",
+        "baa_signed": false,
+        "phi_access": false,
+        "service": "Secondary log aggregation"
+      },
+      {
+        "name": "Vanta",
+        "tier": "medium",
+        "baa_signed": true,
+        "phi_access": false,
+        "service": "Compliance evidence collection"
+      }
+    ]
+  },
+  "ropa": {
+    "purpose": "Records of Processing Activities under HIPAA + state breach notification laws",
+    "count_target": 15,
+    "categories": [
+      "Treatment payment operations (provider-payer data exchange)",
+      "Provider portal account management",
+      "Audit log retention (6 years per HIPAA)",
+      "Customer support ticket handling",
+      "Sales pipeline (no PHI)",
+      "Employee HR records",
+      "Vendor management"
+    ]
+  },
+  "bia_target": {
+    "tier_1_critical": [
+      "PHI processing pipeline (Tier 1)",
+      "Provider portal authentication (Tier 1)"
+    ],
+    "tier_2_essential": [
+      "Payer data delivery",
+      "Audit log forwarding",
+      "Backup and recovery"
+    ],
+    "tier_3_deferrable": [
+      "Internal admin tools",
+      "HR systems",
+      "Marketing site"
+    ]
+  },
+  "validation_flows": [
+    {
+      "name": "HIPAA risk assessment approval",
+      "approvers": [
+        "CISO",
+        "Privacy Officer",
+        "CEO"
+      ],
+      "sla_hours": 72
+    },
+    {
+      "name": "BAA execution (new vendor)",
+      "approvers": [
+        "Privacy Officer",
+        "Legal",
+        "CISO"
+      ],
+      "sla_hours": 120
+    },
+    {
+      "name": "SOC 2 control exception",
+      "approvers": [
+        "CISO",
+        "VP Engineering",
+        "Auditor liaison"
+      ],
+      "sla_hours": 168
+    },
+    {
+      "name": "Breach notification (HIPAA 60-day rule)",
+      "approvers": [
+        "Privacy Officer",
+        "CEO",
+        "Legal",
+        "CISO"
+      ],
+      "sla_hours": 24
+    },
+    {
+      "name": "Policy publication",
+      "approvers": [
+        "CISO",
+        "Department head"
+      ],
+      "sla_hours": 48
+    }
+  ],
+  "audit_log_forwarding": {
+    "target_siem": "Datadog HIPAA-eligible (us-east-1)",
+    "events_per_day_target": "~12M",
+    "retention_days": 2190,
+    "format": "NDJSON (per CISO Assistant `structured-logging` doc)",
+    "events": [
+      "auth.login",
+      "auth.failed",
+      "phi.access",
+      "phi.export",
+      "policy.change",
+      "audit_log.tamper_attempt"
+    ]
+  },
+  "incidents_for_demo": [
+    {
+      "id": "HH-INC-2025-001",
+      "title": "Phishing campaign targeting clinical staff (March 2025)",
+      "severity": "Medium",
+      "status": "Closed",
+      "summary": "Targeted phishing campaign against 12 clinical customer success staff. 3 clicks, 0 credential submissions. Detected via Abnormal Security, contained in 14 minutes.",
+      "lessons_learned": "Added monthly phishing simulation. Moved all customer-success staff to FIDO2-only auth on provider portal."
+    }
+  ],
+  "key_personnel": [
+    {
+      "role": "CEO",
+      "name_pattern": "persona"
+    },
+    {
+      "role": "CISO",
+      "name_pattern": "persona"
+    },
+    {
+      "role": "VP Engineering",
+      "name_pattern": "persona"
+    },
+    {
+      "role": "Privacy Officer",
+      "name_pattern": "persona"
+    },
+    {
+      "role": "Director of Security Engineering",
+      "name_pattern": "persona"
+    },
+    {
+      "role": "Compliance Manager",
+      "name_pattern": "persona"
+    }
+  ]
+}

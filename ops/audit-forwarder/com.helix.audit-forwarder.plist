@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.helix.audit-forwarder</string>
+
++    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/python3</string>
+        <string>/Users/ifeanyi/Documents/IfeSec/Tools/helix-audit-forwarder/helix_audit_forwarder.py</string>
+        <string>--sink</string>
+        <string>file</string>
+        <string>--output</string>
+        <string>/tmp/audit_log_sink.ndjson</string>
+        <string>--poll-interval</string>
+        <string>5</string>
+    </array>
+
++    <!-- Install location for the forwarder script -->
+    <!-- Copy helix_audit_forwarder.py to ~/Documents/IfeSec/Tools/helix-audit-forwarder/ -->
+
++    <key>EnvironmentVariables</key>
+    <dict>
+        <!-- For Datadog sink, set the API key here or in keychain -->
+        <!-- <key>DD_API_KEY</key> -->
+        <!-- <string>YOUR_DATADOG_API_KEY</string> -->
+        <!-- <key>SINK</key> -->
+        <!-- <string>datadog</string> -->
+    </dict>
+
++    <key>RunAtLoad</key>
+    <true/>
+
++    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+
++    <key>StandardOutPath</key>
+    <string>/tmp/helix_audit_forwarder.log</string>
+
++    <key>StandardErrorPath</key>
+    <string>/tmp/helix_audit_forwarder.err</string>
+
++    <key>ThrottleInterval</key>
+    <integer>10</integer>
+</dict>
+</plist>

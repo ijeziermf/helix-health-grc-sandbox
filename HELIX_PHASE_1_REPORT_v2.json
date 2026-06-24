@@ -1,0 +1,428 @@
+{
+  "phase": "Helix Health Phase 1 \u2014 Ingestion Complete",
+  "completed_at": "2026-06-24T17:18:19.234052+00:00",
+  "platform": "CISO Assistant v3.18.3 Community Edition",
+  "platform_url": "https://localhost:8443",
+  "user": "ijeziermf@gmail.com",
+  "framework_scope": {
+    "hipaa": true,
+    "hitrust_csf_v11": false,
+    "soc2_tsc": true,
+    "hds_v2": true,
+    "note": "HITRUST CSF v11 not in v3.18.3 catalog. HIPAA mapped via NIST SP-800-66 rev2."
+  },
+  "counts": {
+    "folder": 1,
+    "perimeters": 3,
+    "risk_scenarios": 12,
+    "policies": 12,
+    "entities_vendors": 10,
+    "risk_matrix": 1,
+    "risk_assessment": 1,
+    "frameworks_loaded": 33,
+    "ropa_entries": 15,
+    "validation_flows": 5
+  },
+  "details": {
+    "folder": {
+      "id": "c912e8a5-379a-4484-b01e-14d4102753c4",
+      "path": [],
+      "parent_folder": {
+        "str": "Global",
+        "id": "43b8f463-2689-40fd-9482-d96dfd22508e"
+      },
+      "filtering_labels": [],
+      "content_type": "DOMAIN",
+      "created_at": "2026-06-24T17:00:09.133283Z",
+      "updated_at": "2026-06-24T17:00:09.133316Z",
+      "is_published": true,
+      "name": "Helix Health",
+      "description": "Helix Health, Inc. \u2014 Healthcare SaaS, BAA-covered PHI processing. 200 employees, 37 provider customers, 4 payer partners. HQ Boston MA.",
+      "builtin": false,
+      "create_iam_groups": false
+    },
+    "perimeters": [
+      {
+        "name": "Helix Provider Portal",
+        "id": "a4ded43f-2302-4f52-a1cd-6a28054fd998"
+      },
+      {
+        "name": "Helix Internal Infrastructure",
+        "id": "663e69ad-cb23-4e01-8b83-afecbec2697b"
+      },
+      {
+        "name": "Helix BAA-Scope PHI Processing System",
+        "id": "ca576150-e74d-4941-87c4-81dd1f0f6677"
+      }
+    ],
+    "risk_scenarios": [
+      {
+        "ref_id": "HH-R-01",
+        "name": "HH-R-01: Ransomware encryption of PHI processing pipeline",
+        "inherent_level": "5 - very high",
+        "current_level": "2 - low",
+        "residual_level": "2 - low",
+        "treatment": "mitigate"
+      },
+      {
+        "ref_id": "HH-R-02",
+        "name": "HH-R-02: BAA-covered vendor breach exposing PHI",
+        "inherent_level": "5 - very high",
+        "current_level": "2 - low",
+        "residual_level": "2 - low",
+        "treatment": "mitigate"
+      },
+      {
+        "ref_id": "HH-R-03",
+        "name": "HH-R-03: Insider threat - privileged access misuse",
+        "inherent_level": "4 - high",
+        "current_level": "2 - low",
+        "residual_level": "2 - low",
+        "treatment": "mitigate"
+      },
+      {
+        "ref_id": "HH-R-04",
+        "name": "HH-R-04: Provider EHR connector compromise (supply chain)",
+        "inherent_level": "5 - very high",
+        "current_level": "3 - medium",
+        "residual_level": "3 - medium",
+        "treatment": "mitigate"
+      },
+      {
+        "ref_id": "HH-R-05",
+        "name": "HH-R-05: HIPAA breach notification failure (60-day rule)",
+        "inherent_level": "4 - high",
+        "current_level": "2 - low",
+        "residual_level": "2 - low",
+        "treatment": "mitigate"
+      },
+      {
+        "ref_id": "HH-R-06",
+        "name": "HH-R-06: AWS region failure (us-east-1 outage)",
+        "inherent_level": "3 - medium",
+        "current_level": "2 - low",
+        "residual_level": "2 - low",
+        "treatment": "accept"
+      },
+      {
+        "ref_id": "HH-R-07",
+        "name": "HH-R-07: Auth0 misconfiguration exposing patient portal",
+        "inherent_level": "4 - high",
+        "current_level": "2 - low",
+        "residual_level": "2 - low",
+        "treatment": "mitigate"
+      },
+      {
+        "ref_id": "HH-R-08",
+        "name": "HH-R-08: Inadequate BAAs with downstream vendors",
+        "inherent_level": "4 - high",
+        "current_level": "2 - low",
+        "residual_level": "2 - low",
+        "treatment": "mitigate"
+      },
+      {
+        "ref_id": "HH-R-09",
+        "name": "HH-R-09: Audit log tampering or loss",
+        "inherent_level": "4 - high",
+        "current_level": "1 - very low",
+        "residual_level": "1 - very low",
+        "treatment": "mitigate"
+      },
+      {
+        "ref_id": "HH-R-10",
+        "name": "HH-R-10: Phishing of clinical staff credentials",
+        "inherent_level": "3 - medium",
+        "current_level": "2 - low",
+        "residual_level": "2 - low",
+        "treatment": "mitigate"
+      },
+      {
+        "ref_id": "HH-R-11",
+        "name": "HH-R-11: Insecure direct object reference in FHIR API",
+        "inherent_level": "4 - high",
+        "current_level": "2 - low",
+        "residual_level": "2 - low",
+        "treatment": "mitigate"
+      },
+      {
+        "ref_id": "HH-R-12",
+        "name": "HH-R-12: Key compromise (KMS, code signing)",
+        "inherent_level": "4 - high",
+        "current_level": "2 - low",
+        "residual_level": "2 - low",
+        "treatment": "mitigate"
+      }
+    ],
+    "policies": [
+      {
+        "ref_id": "HH-POL-01",
+        "name": "Information Security Policy"
+      },
+      {
+        "ref_id": "HH-POL-02",
+        "name": "HIPAA Security Policies and Procedures"
+      },
+      {
+        "ref_id": "HH-POL-03",
+        "name": "Access Control & Privileged Access Policy"
+      },
+      {
+        "ref_id": "HH-POL-04",
+        "name": "Business Associate Agreement (BAA) Policy"
+      },
+      {
+        "ref_id": "HH-POL-05",
+        "name": "Breach Notification Policy (HIPAA 60-day rule)"
+      },
+      {
+        "ref_id": "HH-POL-06",
+        "name": "Incident Response Policy"
+      },
+      {
+        "ref_id": "HH-POL-07",
+        "name": "Vendor / Third-Party Risk Management Policy"
+      },
+      {
+        "ref_id": "HH-POL-08",
+        "name": "Risk Management Policy"
+      },
+      {
+        "ref_id": "HH-POL-09",
+        "name": "Encryption & Key Management Policy"
+      },
+      {
+        "ref_id": "HH-POL-10",
+        "name": "Audit Logging & Monitoring Policy"
+      },
+      {
+        "ref_id": "HH-POL-11",
+        "name": "Data Backup & Recovery Policy"
+      },
+      {
+        "ref_id": "HH-POL-12",
+        "name": "Security Awareness & Acceptable Use Policy"
+      }
+    ],
+    "entities": [
+      {
+        "name": "Amazon Web Services",
+        "ref_id": "HH-VEN-AMA"
+      },
+      {
+        "name": "Datadog",
+        "ref_id": "HH-VEN-DAT"
+      },
+      {
+        "name": "Auth0 (Okta CIC)",
+        "ref_id": "HH-VEN-AUT"
+      },
+      {
+        "name": "Stripe",
+        "ref_id": "HH-VEN-STR"
+      },
+      {
+        "name": "GitHub Enterprise",
+        "ref_id": "HH-VEN-GIT"
+      },
+      {
+        "name": "Google Workspace",
+        "ref_id": "HH-VEN-GOO"
+      },
+      {
+        "name": "PagerDuty",
+        "ref_id": "HH-VEN-PAG"
+      },
+      {
+        "name": "Cloudflare",
+        "ref_id": "HH-VEN-CLO"
+      },
+      {
+        "name": "Sumo Logic",
+        "ref_id": "HH-VEN-SUM"
+      },
+      {
+        "name": "Vanta",
+        "ref_id": "HH-VEN-VAN"
+      }
+    ],
+    "frameworks_loaded": [
+      {
+        "name": "Mapping de la DNSSI vers l'ISO 27001:2022",
+        "urn": "urn:intuitem:risk:library:map-dnssi-iso27001-2022"
+      },
+      {
+        "name": "Mapping de l'ISO 27001:2022 vers la Loi 05-20",
+        "urn": "urn:intuitem:risk:library:map-iso27001-2022-loi-05-20"
+      },
+      {
+        "name": "Mapping de l'ISO 27001:2022 vers la DNSSI 2023",
+        "urn": "urn:intuitem:risk:library:map-iso27001-2022-dnssi"
+      },
+      {
+        "name": "Mapping from nist-csf-1.1 to iso27001-2022",
+        "urn": "urn:intuitem:risk:library:map-nist-csf-1.1-iso27001-2022"
+      },
+      {
+        "name": "Mapping from nist-csf-1.1 to nist-csf-2.0",
+        "urn": "urn:intuitem:risk:library:map-nist-csf-1.1-nist-csf-2.0"
+      },
+      {
+        "name": "adobe-ccf-v5 <-> ISO/IEC 27001:2022",
+        "urn": "urn:intuitem:risk:library:mapping-adobe-ccf-v5-and-iso27001-2022"
+      },
+      {
+        "name": "adobe-ccf-v5 <-> NIST-CSF-1.1",
+        "urn": "urn:intuitem:risk:library:mapping-adobe-ccf-v5-and-nist-csf-1.1"
+      },
+      {
+        "name": "adobe-ccf-v5 <-> SOC2-2017-Rev-2022",
+        "urn": "urn:intuitem:risk:library:mapping-adobe-ccf-v5-and-soc2-2017-rev-2022"
+      },
+      {
+        "name": "Annex-to-the-Implementing-Regulation-of-NIS2-on-Technical-and-methodological-requirements <-> ISO/IEC 27001:2022",
+        "urn": "urn:intuitem:risk:library:mapping-annex-technical-and-methodological-requirements-nis2-and-iso27001-2022"
+      },
+      {
+        "name": "Annex-to-the-Implementing-Regulation-of-NIS2-on-Technical-and-methodological-requirements <-> NIST-CSF-2.0",
+        "urn": "urn:intuitem:risk:library:mapping-annex-technical-and-methodological-requirements-nis2-and-nist-csf-2.0"
+      },
+      {
+        "name": "CCB-CFF-2023-03-01 <-> ISO/IEC 27001:2022",
+        "urn": "urn:intuitem:risk:library:mapping-ccb-cff-2023-03-01-to-iso27001-2022"
+      },
+      {
+        "name": "CIS-Controls-v8 <-> ISO/IEC 27001:2022",
+        "urn": "urn:intuitem:risk:library:mapping-cis-controls-v8-and-iso27001-2022"
+      },
+      {
+        "name": "cisco-ccf-v3.0 <-> ISO/IEC 27001:2022",
+        "urn": "urn:intuitem:risk:library:mapping-cisco-ccf-v3.0-and-iso27001-2022"
+      },
+      {
+        "name": "cisco-ccf-v3.0 <-> SOC2-2017-Rev-2022",
+        "urn": "urn:intuitem:risk:library:mapping-cisco-ccf-v3.0-and-soc2-2017-rev-2022"
+      },
+      {
+        "name": "ISO/IEC 27001:2013 -> ISO/IEC 27001:2022",
+        "urn": "urn:intuitem:risk:library:mapping-iso27001-2013-to-iso27001-2022"
+      },
+      {
+        "name": "ISO/IEC 27001:2022 <-> scf-2025.2.2",
+        "urn": "urn:intuitem:risk:library:mapping-iso27001-2022-and-scf-2025.2.2"
+      },
+      {
+        "name": "ISO/IEC 27001:2022 -> ITIL 4 Management Practices",
+        "urn": "urn:intuitem:risk:library:mapping-iso27001-2022-to-itil4"
+      },
+      {
+        "name": "ISO/IEC 27001:2022 -> SecNumCloud v3.2",
+        "urn": "urn:protocolpaladin:risk:library:mapping-iso27001-2022-to-secnumcloud-3.2"
+      },
+      {
+        "name": "NIST-CSF-2.0 <-> scf-2025.2.2",
+        "urn": "urn:intuitem:risk:library:mapping-nist-csf-2.0-and-scf-2025.2.2"
+      },
+      {
+        "name": "NIST-CSF-2.0 -> ISO/IEC 27001:2022",
+        "urn": "urn:intuitem:risk:library:mapping-nist-csf-2.0-to-iso27001-2022"
+      },
+      {
+        "name": "NIST-SP-800-53-rev5 <-> ISO/IEC 27001:2022",
+        "urn": "urn:intuitem:risk:library:mapping-nist-sp-800-53-rev5-and-iso27001-2022"
+      },
+      {
+        "name": "nist-sp-800-66-rev2 -> NIST-CSF-1.1",
+        "urn": "urn:intuitem:risk:library:mapping-nist-sp-800-66-rev2-to-nist-csf-1.1"
+      },
+      {
+        "name": "nist-sp-800-66-rev2 <--> NIST-CSF-2.0",
+        "urn": "urn:intuitem:risk:library:mapping-nist-sp-800-66-rev2-to-nist-csf-2.0"
+      },
+      {
+        "name": "ReCyF <-> ISO/IEC 27001:2022",
+        "urn": "urn:intuitem:risk:library:mapping-recyf-and-iso27001-2022"
+      },
+      {
+        "name": "SecNumCloud v3.2 -> ISO/IEC 27001:2022",
+        "urn": "urn:protocolpaladin:risk:library:mapping-secnumcloud-3.2-to-iso27001-2022"
+      },
+      {
+        "name": "SOC2-2017-Rev-2022 <-> scf-2025.2.2",
+        "urn": "urn:intuitem:risk:library:mapping-soc2-2017-rev-2022-and-scf-2025.2.2"
+      },
+      {
+        "name": "SOC2-2017-Rev-2022 -> ISO/IEC 27001:2022",
+        "urn": "urn:intuitem:risk:library:mapping-soc2-2017-rev-2022-to-iso27001-2022"
+      },
+      {
+        "name": "Mapping de la Loi 05-20 vers l'ISO 27001:2022",
+        "urn": "urn:intuitem:risk:library:mapping-loi-05-20-iso27001-2022"
+      },
+      {
+        "name": "NIST CSF version 2.0",
+        "urn": "urn:intuitem:risk:library:nist-csf-2.0"
+      },
+      {
+        "name": "International standard ISO/IEC 27001:2022",
+        "urn": "urn:intuitem:risk:library:iso27001-2022"
+      },
+      {
+        "name": "SOC2-2017 Trust Services Criteria (revision 2022)",
+        "urn": "urn:intuitem:risk:library:soc2-2017-rev-2022"
+      },
+      {
+        "name": "NIST SP-800-66 rev2 (HIPAA)",
+        "urn": "urn:intuitem:risk:library:nist-sp-800-66-rev2"
+      },
+      {
+        "name": "HDS v2.0",
+        "urn": "urn:intuitem:risk:library:hds-v2023-a"
+      }
+    ]
+  },
+  "access_verification": {
+    "playwright_login_tested": true,
+    "pages_rendering": 13,
+    "pages_with_errors": 0,
+    "screenshots_saved": [
+      "/tmp/helix-final-analytics.png",
+      "/tmp/helix-final-risks.png",
+      "/tmp/helix-final-policies.png",
+      "/tmp/helix-final-perimeters.png",
+      "/tmp/helix-final-folders.png",
+      "/tmp/helix-final-frameworks.png",
+      "/tmp/helix-final-entities.png",
+      "/tmp/helix-final-risk-assessments.png",
+      "/tmp/helix-final-contracts.png",
+      "/tmp/helix-final-risk-matrices.png"
+    ]
+  },
+  "known_limitations": [
+    "HITRUST CSF v11 not in CISO Assistant v3.18.3 catalog (267 stored libraries available, none are HITRUST)",
+    "Contracts visible in DB but API folder filter returns 0 (10 contracts created, all linked to entities via ORM)",
+    "AtlasPay residuals not populated for 4/6 risks (out of scope for Helix)"
+  ],
+  "next_steps": [
+    "Upload custom HITRUST CSF v11 JSON if required (not in v3.18.3 catalog)",
+    "Configure audit log forwarding cron to Datadog (config doc written, implementation pending)",
+    "Begin Meridian Bank (third persona) - blocked on AtlasPay residuals fix"
+  ],
+  "phase_1b": {
+    "completed_at": "2026-06-24T18:35:08.109495+00:00",
+    "ropa_entries": {
+      "count": 15,
+      "target": 15,
+      "status": "complete"
+    },
+    "validation_flows": {
+      "count": 5,
+      "target": 5,
+      "status": "complete"
+    },
+    "audit_log_config": {
+      "doc_path": "/Users/ifeanyi/Documents/Obsidian Vault/20-Decisions/2026-06-24-Helix-Audit-Log-Forwarding.md",
+      "doc_exists": true,
+      "doc_size_bytes": 4918
+    }
+  }
+}

@@ -1,0 +1,46 @@
+# OS noise
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+Thumbs.db
+
+# Editor noise
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtualenvs
+venv/
+.venv/
+env/
+
+# Local env files with secrets
+.env
+.env.local
+*.env.local
+
+# Local artifacts
+*.log
+nohup.out
+.tmp/
+*.bak
+
+# Generated state dumps (too large for git)
+helix_live_state.json
+helix_live_state_v2.json
+
+# Quarantine files (macOS)
+*.dat
