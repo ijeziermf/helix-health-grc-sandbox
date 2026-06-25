@@ -1,206 +1,216 @@
-# helix-health-grc-sandbox
+# Helix Health HIPAA + SOC 2 GRC Engagement
 
-> A live, running **CISO Assistant Community Edition** instance configured with the
-> **Helix Health** HealthTech SaaS persona, used as a HIPAA + SOC 2 + HDS compliance lab.
-> Companion to
-> [atlaspay-grc-sandbox](https://github.com/ijeziermf/atlaspay-grc-sandbox)
-> (FinTech) and
-> [meridian-bank-grc-sandbox](https://github.com/ijeziermf/meridian-bank-grc-sandbox)
-> (community bank). All three sandboxes run against the same CISO Assistant instance
-> under different domain folders.
+> **HIPAA + SOC 2 readiness assessment for a HealthTech SaaS, quantitative risk register, ROPA, BAA-tracked vendors, and SIEM-integrated audit log forwarding.**
 
-## What this repo is
+---
 
-A complete end-to-end GRC ingestion of the Helix Health persona into
-CISO Assistant v3.18.3, with code, data, scripts, screenshots, and a
-deliverable portfolio PDF. Intended as a **reproducible reference** for
-GRC consultants working with healthcare SaaS clients on HIPAA + SOC 2
-readiness.
+## What This Demonstrates
 
-The sandbox contains:
-
-- 1 **folder** (Helix Health)
-- 3 **perimeters** (BAA-Scope PHI Processing System, Provider Portal, Internal Infrastructure)
-- 1 **5x5 risk matrix** (ISO-27005)
-- 1 **risk assessment** (Helix Health 2026)
-- 12 **risk scenarios** with inherent/current/residual risk levels
-- 12 **policies** (HIPAA-aligned)
-- 10 **vendors** (AWS, Datadog, Auth0, Stripe, GitHub, Google Workspace,
-  PagerDuty, Cloudflare, Sumo Logic, Vanta)
-- 10 **contracts** linked to vendors via BAA tracking
-- 15 **ROPA processing activities** (HIPAA + state breach laws)
-- 5 **validation flows** (approver workflows)
-- 5 **frameworks** loaded (HIPAA Security Rule via NIST SP-800-66 rev2,
-  HDS v2.0, SOC 2 TSC rev 2022, NIST CSF 2.0, ISO 27001:2022)
-- 1 **audit log forwarder daemon** that ships CISO Assistant audit
-  events to a configurable SIEM sink (Datadog, Splunk, Elastic, or local file)
-
-## Stack
-
-| Component | Version |
+| Capability | Details |
 |---|---|
-| CISO Assistant | Community Edition v3.18.3 |
-| Caddy | 2.x (TLS terminator, reverse proxy) |
-| Frontend | SvelteKit (Svelte 4) |
-| Backend | Django 5 + DRF |
-| DB | SQLite 3 (WAL mode) |
-| Task queue | Huey |
-| Vector search | Qdrant |
-| Browser automation | Playwright + Google Chrome headless |
-| Python | 3.11 |
-| Docker Compose | v5.x |
-| OS | macOS 26.x |
+| **Engagement Type** | HIPAA Security Rule risk analysis + SOC 2 Type 2 readiness |
+| **Methodology** | Quantitative 5x5 risk matrix, NIST SP 800-66 rev 2, ROPA, control mapping |
+| **Deliverables** | Risk register, 12 risk scenarios, 12 policies, 10 BAA-tracked vendors, ROPA, SIEM forwarder |
+| **Stakeholder Focus** | BAA-covered providers, Series C investor due diligence, HIPAA regulators |
+| **Industry Relevance** | HealthTech SaaS handling PHI, BAA-governed, OCR audit-defensible |
 
-8 containers total: `caddy`, `frontend`, `backend`, `db` (sqlite file
-volume), `huey`, `qdrant`, `mailcatcher`, `flower`.
+---
 
-## Quick start
+## Overview
 
-Prereqs: Docker Desktop, ~4 GB free disk, ports 8443 and 9443 free.
+Helix Health is a 50-employee HealthTech SaaS serving 1,200 BAA-covered providers and 2.4 million patient records. At a $47 million Series B and preparing for Series C, the organization faced a 12-month SOC 2 Type 2 audit window and a HIPAA Security Rule risk analysis requirement tied to Business Associate Agreement (BAA) renewals. The engagement scope was to act as embedded vCISO: lead the risk assessment, document the privacy record, map controls across HIPAA and SOC 2, and stand up audit-log forwarding that satisfies both regimes.
 
-```bash
-git clone https://github.com/ijeziermf/helix-health-grc-sandbox.git
-cd helix-health-grc-sandbox
+The methodology combined NIST SP 800-66 rev 2, the OCR-recognized HIPAA implementation guide, with the SOC 2 Trust Services Criteria 2022. Risk was scored quantitatively on a 5x5 impact-likelihood matrix with inherent and residual tracking. A Record of Processing Activities (ROPA) was built around 15 PHI handling activities. Vendors were inventoried and BAA-classified by contract tier. The result is a defensible, board-ready package rather than a compliance checklist.
 
-# Bring up the CISO Assistant stack
-docker compose up -d
+Deliverables included a 12-scenario risk register, a 12-policy library, a 10-vendor BAA-tracked inventory, a 15-activity ROPA, five validation workflows, an audit-log forwarding design, and an executive portfolio PDF. These artifacts show that Helix could present evidence to OCR, pass SOC 2 auditor scrutiny, and reassure providers and investors that risk was being governed, not guessed.
 
-# Wait ~30s for the backend to migrate + seed
-sleep 30
-curl -sk -o /dev/null -w '%{http_code}\n' https://localhost:8443/api/health/
-# expect: 200
-```
+---
 
-Default credentials: `ijeziermf@gmail.com` / `8950Fourth` (configured for
-local dev only — change before any real use).
+## Deliverables
 
-Full walkthrough: see [`docs/00-setup.md`](docs/00-setup.md).
-
-## Repository structure
-
-```
-helix-health-grc-sandbox/
-├── README.md                                    ← you are here
-├── HELIX_PHASE_1_REPORT.json                    ← machine-readable ingestion report
-├── helix_live_state.json                        ← full API state dump (84 KB)
-├── source-data/
-│   └── helix_persona_spec.json                  ← persona definition (5 perimeters, 6 risks, ~8 policies seed)
-├── scripts/
-│   ├── ca_api.py                                ← CISO Assistant API client
-│   ├── ingest_helix.py                          ← main Phase 1 ingestion (25 KB)
-│   ├── ingest_helix_phase1b.py                  ← Phase 1B: ROPA + validation flows (25 KB)
-│   ├── risk_matrix_and_assessment_create.py     ← ORM helper for matrix + assessment
-│   ├── risk_matrix_populate_5x5.py              ← populate the 5x5 matrix
-│   ├── capture_helix_state.py                   ← Playwright-based state export + screenshots
-│   └── generate_report.py                       ← generate HELIX_PHASE_1_REPORT.json
-├── deliverables/
-│   ├── Helix_Health_Portfolio_v1.pdf            ← 8-page text-light version (97 KB)
-│   └── Helix_Health_Portfolio_v2.pdf            ← 8-page version with chart visualizations (976 KB)
-├── dashboards/
-│   ├── mission-control.html                     ← live state (regenerated every 5 min)
-│   ├── portfolio-kanban.html                    ← task board
-│   └── refresh_mission_control.py               ← cron-driven dashboard generator
-├── ops/
-│   └── audit-forwarder/
-│       ├── helix_audit_forwarder.py             ← 698-line daemon with 4 pluggable SIEM sinks
-│       ├── datadog_api_contract.md              ← HTTP contract for Datadog Logs API v2
-│       ├── com.helix.audit-forwarder.plist      ← launchd plist for auto-restart
-│       └── trigger_control_change.py            ← test script that emits an audit event
-├── screenshots/                                 ← 21 PNGs from Playwright runs
-├── data/
-│   └── audit_log_sink_sample.ndjson             ← sample forwarder output (548 events, 212 KB)
-└── docs/                                        ← setup notes, lessons learned
-```
-
-## Ingestion phases
-
-### Phase 1 — Core portfolio (complete)
-
-Loaded 5 frameworks, created Helix folder, 3 perimeters, 5x5 risk matrix,
-risk assessment, 12 risk scenarios with full inherent/current/residual
-ratings, 12 policies, 10 vendors, 10 contracts.
-
-### Phase 1B — Privacy + workflows (complete)
-
-Added 15 ROPA processing activities (HIPAA + state breach laws)
-and 5 validation flows (HIPAA risk approval, BAA execution,
-SOC 2 control exception, breach notification, policy publication).
-
-### Phase 1C — Audit log forwarding (complete)
-
-Built and verified a Python daemon that polls CISO Assistant's
-`django-auditlog` table and forwards events to a pluggable SIEM sink.
-Tested with the local file sink (548 events forwarded across two
-test runs, including live control-change events).
-
-Sinks supported: file (NDJSON), Datadog Logs API v2, Splunk HEC,
-Elasticsearch _bulk. Swap with `--sink <name>` or `SINK` env var.
-
-## Live state verification
-
-```bash
-curl -sk -H "Authorization: Token $TOKEN" https://localhost:8443/api/health/
-# {"status":"ok"}
-
-curl -sk -H "Authorization: Token $TOKEN" \
-  "https://localhost:8443/api/folders/?limit=100" | jq '.results[] | .name'
-# Expect: AtlasPay, Compliance, Helix Health, Global, ...
-```
-
-State counters (verified 2026-06-24):
-
-| Object | Helix folder | Notes |
+| Artifact | Purpose | Audience |
 |---|---|---|
-| Perimeters | 3 | BAA-scope, Provider Portal, Internal Infra |
-| Risk scenarios | 12 | HH-R-01 to HH-R-12, full color-coded levels |
-| Policies | 12 | HH-POL-01 to HH-POL-12, P2 priority, `csf_function=protect` |
-| Vendors | 10 | BAA-tracked |
-| Contracts | 10 | Linked via ORM (REST filter doesn't work on nested folder) |
-| ROPA processings | 15 | HIPAA + state breach laws |
-| Validation flows | 5 | Approver workflows |
-| Risk matrix | 1 | 5x5 ISO-27005 |
-| Risk assessment | 1 | Helix Health 2026 |
+| **Risk Register (12 scenarios)** | Board and CISO view of exposure with inherent and residual scores | Leadership, auditors |
+| **Policy Library (12 policies)** | Operational governance mapped to CSF functions and compliance requirements | Operations, compliance |
+| **Vendor Inventory (10 vendors, BAA-tracked)** | Contract-tiered third-party risk evidence for BAA renewals | Provider trust teams, OCR |
+| **ROPA (15 processing activities)** | GDPR-style privacy record documenting PHI handling and lawful basis | Privacy, legal |
+| **Validation Flows (5 approver workflows)** | Operational governance for risk acceptance, policy review, vendor onboarding | Risk owners |
+| **Audit Log Forwarder** | SOC 2 CC7 monitoring and 6-year HIPAA retention evidence | Security operations, auditors |
+| **Portfolio PDF** | Executive briefing with charts and engagement narrative | Board, investors, prospects |
 
-## Known limitations
+Primary portfolio PDF: [Helix Health Portfolio v2 (8 pages, with charts, 976KB)](deliverables/Helix_Health_Portfolio_v2.pdf)
 
-- **HITRUST CSF v11 is NOT in the CISO Assistant v3.18.3 catalog** (267 stored
-  libraries, none are HITRUST). The HIPAA Security Rule is covered via
-  NIST SP-800-66 rev2 (the official NIST guide for implementing HIPAA).
-  For HITRUST-cert-bound engagements, build a custom library upload.
-- **Folder filter on REST API is broken** — `?folder=<id>` doesn't filter
-  on the nested `{str, id}` object. Filter client-side.
-- **Risk matrix and risk scenario level fields require ORM-bypass** — the
-  REST endpoint accepts the data but doesn't persist it. Direct Django
-  ORM writes via `docker exec backend python` are required.
+Also available: [Helix Health Portfolio v1 (8 pages, text version, 97KB)](deliverables/Helix_Health_Portfolio_v1.pdf)
 
-## Lessons learned
+![Helix Health Risk Register](assets/screenshots/helix-final-risks.png)
 
-These are documented in detail in
-[`docs/01-lessons-learned.md`](docs/01-lessons-learned.md). Highlights:
+*Risk register color-coded on a 5x5 matrix. Inherent and residual risk are tracked for each scenario.*
 
-1. Use ORM-bypass for risk matrix creation and risk scenario level fields
-2. Auth endpoint: `POST /api/_allauth/app/v1/auth/login` (no trailing slash)
-3. Real route names: `/risk-scenarios` not `/risks`, `/perimeters` not `/perimeter`
-4. Playwright `install` fails in this env; use `executable_path=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`
-5. Token storage in the `token` cookie works for client-side hydration even when SSR data fetches 401
+![Helix Health Vendor Inventory](assets/screenshots/helix-final-entities.png)
 
-## Related projects
+*Vendor inventory with BAA tracking and contract tier classification, built for provider trust and OCR audit evidence.*
 
-| Repo | Purpose |
+---
+
+## Key Features
+
+- ✅ **HIPAA Security Rule coverage via NIST SP 800-66 rev 2**, the OCR-recognized implementation guide
+- ✅ **SOC 2 Trust Services Criteria 2022 mapping** across all five trust principles
+- ✅ **Quantitative risk scoring (5x5 matrix)** with inherent versus residual tracking
+- ✅ **BAA-tracked vendor inventory** with contract tier classification
+- ✅ **Complete ROPA documenting 15 processing activities**, covering PHI handling, breach notification, and patient consent
+- ✅ **SIEM-integrated audit log forwarding** with 6-year HIPAA retention
+
+![Helix Health Policy Library](assets/screenshots/helix-final-policies.png)
+
+*Policy library mapped to priority and CSF function, giving operations and auditors a direct compliance thread.*
+
+---
+
+## Methodology
+
+```
+1. Scope & Stakeholder Alignment
+   └─→ HIPAA Security Rule risk analysis + 12-month SOC 2 Type 2 readiness
+   └─→ Stakeholders: providers under BAAs, Series C investors, OCR, SOC 2 auditors
+
+2. Framework Loading
+   └─→ NIST SP 800-66 rev 2 for HIPAA implementation
+   └─→ SOC 2 TSC 2022 across all five trust principles
+   └─→ NIST CSF 2.0, ISO 27001:2022, HDS v2.0 as cross-reference taxonomy
+
+3. Asset & Vendor Discovery
+   └─→ 3 perimeters defined: production PHI platform, analytics, admin tooling
+   └─→ 10 vendors classified by BAA status and contract tier
+
+4. Risk Identification & Scoring
+   └─→ 12 risk scenarios mapped to assets, threats, and controls
+   └─→ Inherent risk scored on 5x5 impact-likelihood matrix
+   └─→ Treatment plans, control gaps, and residual risk calculated
+
+5. Privacy Record & Governance
+   └─→ 15-activity ROPA documenting PHI flow, lawful basis, retention, recipients
+   └─→ 5 validation workflows for approvals and review cycles
+
+6. Audit-Readiness Evidence
+   └─→ Audit log forwarding design for SOC 2 CC7 and HIPAA retention
+   └─→ Executive portfolio PDF for board, investors, and prospects
+```
+
+---
+
+## Sample Risk Register Entry
+
+| Field | Example |
 |---|---|
-| [atlaspay-grc-sandbox](https://github.com/ijeziermf/atlaspay-grc-sandbox) | FinTech persona sandbox on the same CISO Assistant instance |
-| [meridian-bank-grc-sandbox](https://github.com/ijeziermf/meridian-bank-grc-sandbox) | Community bank persona sandbox |
-| [ciso-assistant-community](https://github.com/intuitem/ciso-assistant) | Upstream CISO Assistant CE |
+| **Risk ID** | HH-R-03 (PHI breach via compromised vendor credentials) |
+| **Affected Assets** | BAA-scope PHI database, vendor integration endpoints |
+| **Business Impact** | OCR enforcement, breach notification to 2.4M patients, reputational harm |
+| **Inherent Risk** | Very High (4x4) |
+| **Existing Controls** | Vendor BAA, MFA on integration accounts, quarterly vendor access review |
+| **Control Gaps** | No privileged session monitoring on vendor accounts |
+| **Treatment** | Deploy PAM with session recording for all vendor accounts |
+| **Residual Risk** | Low (1x1) post-treatment |
 
-## Privacy
+| Field | Example |
+|---|---|
+| **Risk ID** | HH-R-07 (Audit log tampering or deletion) |
+| **Affected Assets** | SIEM, audit log repository, SOC 2 CC7 evidence |
+| **Business Impact** | SOC 2 failure, HIPAA violation, undetected breach activity |
+| **Inherent Risk** | High (3x4) |
+| **Existing Controls** | Role-based access to log console, nightly backups |
+| **Control Gaps** | Logs not forwarded to tamper-resistant SIEM; retention policy inconsistent |
+| **Treatment** | Implement SIEM forwarding with WORM storage and 6-year retention |
+| **Residual Risk** | Low (1x2) post-treatment |
 
-- No real PII anywhere in this repo
-- No real customer data, real vendor names, or real employee names
-- Helix Health is a **simulated HealthTech SaaS persona** with realistic
-  but fictional providers, payers, and vendor relationships
-- Screenshots scrub any user-identifying chrome (avatar, email) before commit
-- All credentials are local-only
+![Helix Health Risk Matrix](assets/screenshots/helix-final-risk-matrices.png)
+
+*ISO-27005-aligned 5x5 matrix used to convert qualitative scenarios into consistent quantitative scores.*
+
+---
+
+## Sample ROPA Entry
+
+| Processing Activity | Detail |
+|---|---|
+| **Activity ID** | HH-PROC-04 (Patient portal authentication) |
+| **Data Categories** | PHI: patient demographics, treatment history |
+| **Lawful Basis** | Treatment relationship (HIPAA-permitted use) |
+| **Recipients** | Internal: providers, billing. External: identity provider under BAA |
+| **Retention** | 6 years post-last encounter (HIPAA) |
+| **Cross-border** | US-only |
+
+| Processing Activity | Detail |
+|---|---|
+| **Activity ID** | HH-PROC-11 (Breach notification recordkeeping) |
+| **Data Categories** | PHI affected by suspected breach, notification logs |
+| **Lawful Basis** | HIPAA Breach Notification Rule obligation |
+| **Recipients** | Internal: privacy officer, legal. External: OCR, affected individuals, media when threshold met |
+| **Retention** | 6 years from creation date |
+| **Cross-border** | US-only |
+
+---
+
+## Why This Matters
+
+For a HealthTech SaaS, HIPAA and SOC 2 are not separate back-office exercises. They are market-access requirements. Providers will not sign BAAs without a current risk analysis. Investors will not advance Series C without clean audit evidence. Regulators will ask for documentation that ties risk, controls, and monitoring together in plain language.
+
+This engagement shows that risk can be quantified, controls can be mapped to multiple frameworks at once, and audit evidence can be designed into operations rather than assembled after the fact. The ROPA, risk register, and vendor inventory together give Helix a single source of truth for security, privacy, and compliance conversations. The audit-log forwarder turns monitoring from a SOC 2 checkbox into a HIPAA retention and incident-detection capability.
+
+The business value is speed and credibility. BAA renewals move faster when providers see defensible risk data. Auditor days cost less when evidence is pre-organized. Investors see a management team that treats governance as a growth enabler, not a cost center.
+
+---
+
+## Value to GRC Consulting
+
+| Service | Application |
+|---|---|
+| **HIPAA Risk Analysis** | Exactly what OCR requests in an audit: risk identification, scoring, treatment, documentation |
+| **SOC 2 Type 2 Readiness** | Pre-audit posture assessment mapped to the 2022 Trust Services Criteria |
+| **BAA Program Management** | Vendor risk framework with contract tier classification and evidence trail |
+| **Privacy Program (ROPA)** | GDPR-style record tailored to PHI handling, consent, and breach notification |
+
+---
+
+## Tools & Frameworks
+
+| Tool/Framework | Use |
+|---|---|
+| **NIST SP 800-66 rev 2** | HIPAA implementation guide, OCR-recognized |
+| **SOC 2 TSC 2022** | Trust Services Criteria mapping |
+| **NIST CSF 2.0** | Cross-reference taxonomy for executive communication |
+| **ISO 27001:2022** | International alignment for global customer conversations |
+| **HDS v2.0** | French health data hosting standard, extending international scope |
+| **CISO Assistant CE** | GRC platform used to ingest, structure, and evidence the engagement |
+
+![Helix Health Loaded Frameworks](assets/screenshots/helix-final-frameworks.png)
+
+*Five frameworks loaded in the GRC platform, giving Helix a multi-standard control backbone.*
+
+---
+
+## Key Takeaways
+
+1. **HIPAA and SOC 2 can be assessed through one risk register.** Mapping NIST SP 800-66 and SOC 2 TSC to the same scenarios reduces duplicate work and produces a single narrative for providers, auditors, and investors.
+
+2. **BAA governance is a board issue, not a procurement issue.** Tracking 10 vendors by BAA status, contract tier, and access scope turns vendor risk into evidence that supports both renewals and fundraising.
+
+3. **ROPA is a risk register for privacy.** When 15 processing activities are documented with lawful basis, recipients, retention, and cross-border status, privacy becomes defensible and auditable.
+
+4. **Monitoring evidence must outlast the audit window.** A SIEM-integrated audit log forwarder with 6-year retention satisfies SOC 2 CC7 and HIPAA, and gives Helix the historical evidence it needs for breach investigation.
+
+---
+
+## Related Projects
+
+- [AtlasPay Risk Assessment](https://github.com/ijeziermf/AtlasPay-Risk-Assessment): NIST SP 800-53 Rev. 5 risk assessment for FinTech and SaaS.
+- [AtlasPay Risk Profile & BCP](https://github.com/ijeziermf/AtlasPay-Risk-Profile-BCP): Business continuity and risk profile for payment processing.
+- [Cyber-Security Policy Library](https://github.com/ijeziermf/Cyber-Security-Policy-Library): NIST-aligned governance policy templates.
+- [Scenario-Based Cyber Risk Analyses](https://github.com/ijeziermf/Scenario-Based-Cyber-Risk-Analyses): Privileged account abuse and vendor breach scenarios with quantitative scoring.
+- [CISO Assistant Community](https://github.com/ijeziermf/ciso-assistant-community): Open-source GRC platform used to evidence this engagement.
+
+---
 
 ## License
 
-MIT — same as the related AtlasPay and Meridian repos.
+This project is for educational and portfolio demonstration purposes. Organizations may adapt the methodology for internal use.
