@@ -58,7 +58,7 @@ logger = logging.getLogger("helix-forwarder")
 # ---------------------------------------------------------------------------
 
 DEFAULT_DB_PATH = os.path.expanduser(
-    "~/Documents/IfeSec/Tools/ciso-assistant-community/db/ciso-assistant.sqlite3"
+    "~/Documents/IJZ-Workspace/Tools/ciso-assistant-community/db/ciso-assistant.sqlite3"
 )
 DEFAULT_STATE_FILE = "/tmp/helix_audit_forwarder_state.json"
 DEFAULT_OUTPUT_FILE = "/tmp/audit_log_sink.ndjson"
@@ -86,7 +86,7 @@ OCSF_ACTIVITY_MAP = {0: 1, 1: 3, 2: 4, 3: 2}
     <key>ProgramArguments</key>
     <array>
         <string>/usr/local/bin/python3</string>
-        <string>/Users/ifeanyi/Documents/IfeSec/Tools/helix-audit-forwarder/helix_audit_forwarder.py</string>
+        <string>/Users/ifeanyi/Documents/IJZ-Workspace/Tools/helix-audit-forwarder/helix_audit_forwarder.py</string>
         <string>--sink</string>
         <string>file</string>
         <string>--output</string>
@@ -96,7 +96,7 @@ OCSF_ACTIVITY_MAP = {0: 1, 1: 3, 2: 4, 3: 2}
     </array>
 
     <!-- Install location for the forwarder script -->
-    <!-- Copy helix_audit_forwarder.py to ~/Documents/IfeSec/Tools/helix-audit-forwarder/ -->
+    <!-- Copy helix_audit_forwarder.py to ~/Documents/IJZ-Workspace/Tools/helix-audit-forwarder/ -->
 
     <key>EnvironmentVariables</key>
     <dict>

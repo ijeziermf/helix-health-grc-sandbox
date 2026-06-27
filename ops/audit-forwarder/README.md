@@ -30,7 +30,7 @@ Swapping sinks is one flag (`--sink datadog`) or env var (`SINK=datadog`).
 ```bash
 python3 helix_audit_forwarder.py \
     --sink file \
-    --db-path /Users/ifeanyi/Documents/IfeSec/Tools/ciso-assistant-community/db/ciso-assistant.sqlite3 \
+    --db-path /Users/ifeanyi/Documents/IJZ-Workspace/Tools/ciso-assistant-community/db/ciso-assistant.sqlite3 \
     --output /var/log/helix/audit.ndjson
 ```
 
@@ -131,7 +131,7 @@ left off. Delete this file to force a full backfill.
 All flags can be set via YAML:
 
 ```yaml
-db_path: /Users/ifeanyi/Documents/IfeSec/Tools/ciso-assistant-community/db/ciso-assistant.sqlite3
+db_path: /Users/ifeanyi/Documents/IJZ-Workspace/Tools/ciso-assistant-community/db/ciso-assistant.sqlite3
 sink: datadog
 poll_interval_seconds: 2
 dd_api_key: ${DD_API_KEY}
