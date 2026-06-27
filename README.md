@@ -310,7 +310,7 @@ The following patterns came out of this engagement and should be applied to ever
 
 ### Evidence-Quality Visuals (4 diagrams)
 
-Generated for the v3 stakeholder-facing PDFs (no UI screenshots, no platform captures — these show the analyst's output, not the platform's UI):
+Generated for the v3 stakeholder-facing PDFs (no UI screenshots, no platform captures - these show the analyst's output, not the platform's UI):
 
 | Visual | Source PDF | What it shows |
 |---|---|---|
@@ -330,7 +330,7 @@ The engagement record from start to finish, in `deliverables/source-data/`:
 | `baa-inventory-2026-06-27.md` | BAA Inventory source markdown |
 | `breach-notification-playbook-2026-06-27.md` | Breach Notification Playbook source markdown |
 | `ropa-summary-2026-06-27.md` | 15 PHI processing activities ROPA |
-| `cross-walk-2026-06-27.md` | Multi-framework cross-walk (HIPAA + SOC 2 + HITRUST + HDS) — 12 controls x 4 frameworks |
+| `cross-walk-2026-06-27.md` | Multi-framework cross-walk (HIPAA + SOC 2 + HITRUST + HDS) - 12 controls x 4 frameworks |
 | `board-clinical-briefing-2026-06-27.md` | Board + Clinical-Leadership briefing source |
 
 ### Operational Artifact (1 directory, 5 files)
