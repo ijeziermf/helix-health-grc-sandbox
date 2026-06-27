@@ -94,6 +94,8 @@ HIPAA requires that BAA obligations flow down to subcontractors (§164.504(e)(1)
 
 **Subcontractor BAA Chain: Verified for all Tier 1 vendors.** This is documented evidence for §164.504(e)(1)(ii) compliance.
 
+![Figure 1: Helix Health BAA Chain - 10 Vendors Across 3 Tiers with AWS Subprocessing Callout](../../assets/images/helix-baa-chain.png)
+
 ---
 
 ## 5. BAA Renewal Calendar

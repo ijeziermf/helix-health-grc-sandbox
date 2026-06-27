@@ -23,6 +23,8 @@ This cross-walk identifies every Helix control and shows which framework require
 
 ## 2. Cross-Walk Matrix (15 Domains)
 
+![Figure 1: Helix Health Multi-Framework Cross-Walk - 12 Controls x 4 Frameworks (HIPAA Security Rule, SOC 2 TSC 2022, HITRUST CSF v11, HDS v2.0)](../../assets/images/helix-cross-walk.png)
+
 Each domain shows controls and the framework requirements each satisfies.
 
 ### 2.1 Access Control

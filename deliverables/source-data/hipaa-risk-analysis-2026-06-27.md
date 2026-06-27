@@ -108,6 +108,8 @@ Each risk is mapped to the relevant HIPAA Security Rule safeguard:
 | Moderate | 5 | 42% |
 | Low | 0 | 0% |
 
+![Figure 1: Helix Health HIPAA 5x5 Risk Heatmap - 12 Risks Plotted with INHERENT vs RESIDUAL](../../assets/images/helix-risk-heatmap.png)
+
 **Inherent risk profile:** All 12 scenarios start at Moderate or above. This is expected for any organization handling PHI at scale; the goal is mitigation effectiveness, not elimination.
 
 ---

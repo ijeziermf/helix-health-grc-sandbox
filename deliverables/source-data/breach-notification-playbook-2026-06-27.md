@@ -119,6 +119,8 @@ Per §164.402(2), document each factor within 24 hours of discovery:
 
 ## 5. Incident Response Decision Tree
 
+![Figure 1: Helix Health HIPAA Breach Notification Flow - 60-Day Clock with 4-Factor Assessment, Three Branches, and State Overlays](../../assets/images/helix-breach-notification-flow.png)
+
 ```
 INCIDENT DISCOVERED
     |

@@ -296,16 +296,28 @@ The following patterns came out of this engagement and should be applied to ever
 
 ## Deliverables
 
-### Stakeholder-Facing PDFs (4 files)
+### Stakeholder-Facing PDFs (5 files, v3 brand-compliant)
 
 | Deliverable | Purpose | Pages | Audience |
 |---|---|---|---|
-| [HIPAA Risk Analysis](deliverables/hipaa-risk-analysis.pdf) | OCR-defensible per §164.308(a)(1)(ii)(A) | 9 | OCR auditors, Compliance Committee |
-| [BAA Inventory + Adequacy Assessment](deliverables/baa-inventory.pdf) | §164.504(e) satisfactory assurances | 8 | Legal, TPRM, OCR auditors |
-| [Breach Notification Playbook](deliverables/breach-notification-playbook.pdf) | HIPAA 60-day rule operationalized | 11 | CISO, Legal, on-call team |
+| [HIPAA Risk Analysis](deliverables/hipaa-risk-analysis.pdf) | OCR-defensible per §164.308(a)(1)(ii)(A), 12 risk heatmap | 9 | OCR auditors, Compliance Committee |
+| [BAA Inventory + Adequacy Assessment](deliverables/baa-inventory.pdf) | §164.504(e) satisfactory assurances, BAA chain diagram | 8 | Legal, TPRM, OCR auditors |
+| [Breach Notification Playbook](deliverables/breach-notification-playbook.pdf) | HIPAA 60-day rule operationalized, decision flow | 11 | CISO, Legal, on-call team |
+| [Multi-Framework Cross-Walk](deliverables/cross-walk.pdf) | HIPAA + SOC 2 + HITRUST + HDS coverage matrix | 9 | Compliance leadership, multi-framework assessors |
 | [Board + Clinical-Leadership Briefing](deliverables/board-clinical-briefing.pdf) | Quarterly board briefing | 8 | Board, Clinical Advisory Board, CEO |
 
-**Total:** 36 pages of OCR-defensible HIPAA documentation.
+**Total:** 45 pages of OCR-defensible HIPAA documentation across 5 stakeholder-facing PDFs.
+
+### Evidence-Quality Visuals (4 diagrams)
+
+Generated for the v3 stakeholder-facing PDFs (no UI screenshots, no platform captures — these show the analyst's output, not the platform's UI):
+
+| Visual | Source PDF | What it shows |
+|---|---|---|
+| [HIPAA 5x5 Risk Heatmap (INHERENT vs RESIDUAL)](assets/images/helix-risk-heatmap.png) | hipaa-risk-analysis.pdf, page 5 | All 12 HIPAA risks plotted side-by-side, residual all lower than inherent |
+| [BAA Chain (10 vendors, 3 tiers, AWS subprocessing)](assets/images/helix-baa-chain.png) | baa-inventory.pdf, page 6 | Covered Entity + Business Associate structure per §164.504(e), 4 Critical / 4 Important / 2 Deferrable |
+| [Breach Notification Flow (60-day clock + 4-factor assessment)](assets/images/helix-breach-notification-flow.png) | breach-notification-playbook.pdf, page 5 | Decision flow with 3 branches (Presumed / Mixed / Low), state overlays (FL/NY/CA) |
+| [Multi-Framework Cross-Walk Matrix](assets/images/helix-cross-walk.png) | cross-walk.pdf, page 3 | 12 Helix controls × 4 frameworks (HIPAA Security Rule, SOC 2 TSC 2022, HITRUST CSF v11, HDS v2.0) |
 
 ### Source Markdowns (7 files)
 
@@ -318,7 +330,7 @@ The engagement record from start to finish, in `deliverables/source-data/`:
 | `baa-inventory-2026-06-27.md` | BAA Inventory source markdown |
 | `breach-notification-playbook-2026-06-27.md` | Breach Notification Playbook source markdown |
 | `ropa-summary-2026-06-27.md` | 15 PHI processing activities ROPA |
-| `cross-walk-2026-06-27.md` | Multi-framework cross-walk (HIPAA + SOC 2 + HITRUST + HDS) |
+| `cross-walk-2026-06-27.md` | Multi-framework cross-walk (HIPAA + SOC 2 + HITRUST + HDS) — 12 controls x 4 frameworks |
 | `board-clinical-briefing-2026-06-27.md` | Board + Clinical-Leadership briefing source |
 
 ### Operational Artifact (1 directory, 5 files)
